@@ -1,0 +1,11 @@
+extends @pug/_base
+include @pug/_mixins
+block vars
+  - var lang = ''
+  - var title = ''
+  - var favicon = 'img/favicons/favicon.webp'
+block content
+  .wrapper
+    include pug/_header
+    main.page
+    include pug/_footer
