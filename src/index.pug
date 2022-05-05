@@ -1,10 +1,12 @@
+block vars
+  - var title = 'PROJECT_NAME';
 doctype html
 head
   meta(charset='UTF-8')
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  title &Vcy;&iecy;&rcy;&scy;&tcy;&kcy;&acy; &laquo;NEW_PROJECT_NAME&raquo;
+  title &Vcy;&iecy;&rcy;&scy;&tcy;&kcy;&acy; &laquo;#{title}&raquo;
 .rootpage
-  h1 &Vcy;&iecy;&rcy;&scy;&tcy;&kcy;&acy; &laquo;NEW_PROJECT_NAME&raquo;
+  h1 &Vcy;&iecy;&rcy;&scy;&tcy;&kcy;&acy; &laquo;#{title}&raquo;
   .rootpage__info
     | &Ocy;&scy;&ocy;&bcy;&iecy;&ncy;&ncy;&ocy;&scy;&tcy;&icy; &pcy;&rcy;&ocy;&iecy;&kcy;&tcy;&acy;
   h2 &Gcy;&ocy;&tcy;&ocy;&vcy;&ycy;&iecy; &scy;&tcy;&rcy;&acy;&ncy;&icy;&tscy;&ycy;:
@@ -15,10 +17,6 @@ head
   ol.rootpage__list
     li
       a(target='_blank' href='home.html#')
-  .rootpage__tnx
-    h2 &Scy;&pcy;&acy;&scy;&icy;&bcy;&ocy; &zcy;&acy; &zcy;&acy;&kcy;&acy;&zcy;!
-    p &Bcy;&ucy;&dcy;&ucy; &rcy;&acy;&dcy; (&acy;) &khcy;&ocy;&rcy;&ocy;&shcy;&iecy;&mcy;&ucy; &ocy;&tcy;&zcy;&ycy;&vcy;&ucy;.
-    p &Ocy;&bcy;&rcy;&acy;&shchcy;&acy;&jcy;&tcy;&iecy;&scy;&softcy; &iecy;&shchcy;&iecy;!
   .rootpage__contacts
     h2 &Mcy;&ocy;&icy; &kcy;&ocy;&ncy;&tcy;&acy;&kcy;&tcy;&ycy;:
     p

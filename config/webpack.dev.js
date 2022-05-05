@@ -11,7 +11,7 @@ const rootFolder = path.basename(path.resolve());
 const isDev = !process.argv.includes("--build");
 
 let pugPages = fs
-  .readdirSync(assetsFolder)
+  .readdirSync(srcFolder)
   .filter((fileName) => fileName.endsWith(".pug"));
 
 const paths = {
@@ -65,15 +65,10 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.m?js/,
-        resolve: {
-          fullySpecified: false,
-        },
-      },
-      {
         test: /\.(scss|css)$/,
         exclude: `${paths.assets}/fonts`,
         use: [
+          'style-loader',
           {
             loader: "string-replace-loader",
             options: {
@@ -98,6 +93,12 @@ const config = {
               },
             },
           },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            }
+          }
         ],
       },
       {
@@ -107,19 +108,16 @@ const config = {
             loader: "pug-loader",
             options: {
               data: { isDev },
-              basedir: `${paths.src}/pug`,
+              basedir: `${paths.src}/`,
             },
           },
           {
             loader: "string-replace-loader",
             options: {
               multiple: [
-                {
-                  search: "link(rel='stylesheet' href='css/style.min.css')",
-                  replace: " ",
-                },
+                { search: "link(rel='stylesheet' href='css/style.min.css')", replace: " " },
                 { search: "../img", replace: "img" },
-                { search: "NEW_PROJECT_NAME", replace: rootFolder },
+                { search: "PROJECT_NAME", replace: rootFolder },
               ],
             },
           },
@@ -132,12 +130,11 @@ const config = {
       (pugPage) =>
         new HtmlWebpackPlugin({
           minify: false,
-          template: `${assetsFolder}/${pugPage}`,
+          template: `${srcFolder}/${pugPage}`,
           filename: `${pugPage.replace(/\.pug/, ".html")}`,
           inject: false,
         })
     ),
-    new VueLoaderPlugin(),
     new CopyPlugin({
       patterns: [
         {
@@ -147,7 +144,7 @@ const config = {
           force: true,
         },
         {
-          from: `${srcFolder}/files`,
+          from: `${assetsFolder}/files`,
           to: `files`,
           noErrorOnMissing: true,
           force: true,
