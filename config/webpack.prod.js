@@ -70,8 +70,7 @@ const config = {
             loader: "string-replace-loader",
             options: {
               multiple: [
-                { search: "../img", replace: "img" },
-                { search: "PROJECT_NAME", replace: rootFolder },
+                { search: "PROJECT_NAME", replace: rootFolder, flags: "g" },
               ],
             },
           },

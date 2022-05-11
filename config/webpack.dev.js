@@ -116,8 +116,7 @@ const config = {
             options: {
               multiple: [
                 { search: "link(rel='stylesheet' href='css/style.min.css')", replace: " " },
-                { search: "../img", replace: "img" },
-                { search: "PROJECT_NAME", replace: rootFolder },
+                { search: "PROJECT_NAME", replace: rootFolder, flags: "g" },
               ],
             },
           },
@@ -161,10 +160,10 @@ const config = {
     alias: {
       "@scss": `${paths.assets}/scss`,
       "@js": `${paths.src}/js`,
-      "@img": `${paths.assets}/img`,
+      "img": `${paths.assets}/img`,
       "@pug": `${paths.assets}/pug`,
     },
-    extensions: [".pug", ".js", ".scss", ".json"],
+    extensions: [".pug", ".jade", ".html", ".js", ".scss", ".json"],
   },
 };
 export default config;
