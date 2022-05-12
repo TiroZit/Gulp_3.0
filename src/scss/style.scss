@@ -42,12 +42,13 @@ $tablet: em(991.98); // Планшеты, некоторые телефоны в
 $mobile: em(767.98); // Телефоны L
 $mobileSmall: em(479.98); // Телефоны S
 $grid-breakpoints: (
-  mobileSmall: 480em, // Телефоны S 480px
-  mobile: 768em, // Телефоны L 768px
-  tablet: 992em, // Планшеты, некоторые телефоны в горизонтальном положении 992px
+  mobile: 480em, // Телефоны S 480px
+  tablet: 768em, // Телефоны L 768px
+  tablet-xl: 992em, // Планшеты, некоторые телефоны в горизонтальном положении 992px
   laptop: 1024em, // Ноутбуки S 1024px
   laptop-xl: 1200em, // Ноутбуки L 1200px
-  pc: 1130em // ПК $containerWidth
+  laptop-xxl: 1400em, // Ноутбуки 1400px
+  container: 1110em // ПК $containerWidth
 );
 
 // Тип адаптива:
@@ -71,15 +72,10 @@ body {
 
 // Оболочка
 .wrapper {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   min-height: 100%;
   overflow: hidden;
-
-  // Прижимаем footer
-  >main {
-    flex: 1 1 auto;
-  }
 
   // Фикс для слайдеров
   // > * {
@@ -89,7 +85,7 @@ body {
 
 // Ограничивающий контейнер
 .js-focus-visible :focus-visible {
-  // outline: rem(3) solid var(--colorDarkRaspberry);
+  // outline: rem(3) solid var(--color);
   transition: outline 0.1s ease 0s;
 }
 
