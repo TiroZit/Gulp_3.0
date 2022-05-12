@@ -8,7 +8,7 @@ const srcFolder = "src";
 const assetsFolder = "assets";
 const builFolder = "dist";
 const rootFolder = path.basename(path.resolve());
-const isDev = !process.argv.includes("--build");
+const isDev = !process.argv.includes('--build');
 
 let pugPages = fs
   .readdirSync(srcFolder)
@@ -106,10 +106,6 @@ const config = {
         use: [
           {
             loader: "pug-loader",
-            options: {
-              data: { isDev },
-              basedir: `${paths.src}/`,
-            },
           },
           {
             loader: "string-replace-loader",
@@ -132,6 +128,9 @@ const config = {
           template: `${srcFolder}/${pugPage}`,
           filename: `${pugPage.replace(/\.pug/, ".html")}`,
           inject: false,
+          templateParameters: {
+            isDev
+          }
         })
     ),
     new CopyPlugin({
