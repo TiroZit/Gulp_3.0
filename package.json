@@ -64,6 +64,7 @@
     "sass": "latest",
     "sass-loader": "latest",
     "string-replace-loader": "latest",
+    "style-loader": "^3.3.1",
     "terser-webpack-plugin": "latest",
     "transform-runtime": "0.0.0",
     "vinyl-ftp": "latest",
