@@ -36,7 +36,6 @@
     "gulp": "latest",
     "gulp-autoprefixer": "latest",
     "gulp-avif-css": "latest",
-    "gulp-cheerio": "^1.0.0",
     "gulp-clean-css": "latest",
     "gulp-fonter-fix": "latest",
     "gulp-group-css-media-queries": "latest",
