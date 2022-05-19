@@ -1,35 +1,35 @@
-import fs from "fs";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import CopyPlugin from "copy-webpack-plugin";
+import fs from 'fs'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import CopyPlugin from 'copy-webpack-plugin'
 
-import * as path from "path";
+import * as path from 'path'
 
-const srcFolder = "src";
-const assetsFolder = "assets";
-const builFolder = "dist";
-const rootFolder = path.basename(path.resolve());
-const isDev = !process.argv.includes('--build');
+const srcFolder = 'src'
+const assetsFolder = 'assets'
+const builFolder = 'dist'
+const rootFolder = path.basename(path.resolve())
+const isDev = !process.argv.includes('--build')
 
 let pugPages = fs
   .readdirSync(srcFolder)
-  .filter((fileName) => fileName.endsWith(".pug"));
+  .filter(fileName => fileName.endsWith('.pug'))
 
 const paths = {
   src: path.resolve(srcFolder),
   assets: path.resolve(assetsFolder),
   build: path.resolve(builFolder),
-};
+}
 const config = {
-  mode: "development",
-  devtool: "inline-source-map",
+  mode: 'development',
+  devtool: 'inline-source-map',
   optimization: {
     minimize: false,
     splitChunks: {
       cacheGroups: {
         vendor: {
-          name: "vendors",
+          name: 'vendors',
           test: /node_modules/,
-          chunks: "all",
+          chunks: 'all',
           enforce: true,
         },
       },
@@ -38,17 +38,17 @@ const config = {
   entry: [`${paths.src}/js/main.js`],
   output: {
     path: `${paths.build}`,
-    filename: "js/[name].min.js",
-    publicPath: "/",
+    filename: 'js/[name].min.js',
+    publicPath: '/',
   },
   devServer: {
     historyApiFallback: true,
     static: paths.build,
     open: false,
     compress: true,
-    port: "auto",
+    port: 'auto',
     hot: true,
-    host: "localhost", // localhost
+    host: 'localhost', // localhost
 
     // Расскоментировать на слабом ПК
     // (в режиме разработчика, папка с результаттом будет создаваться на диске)
@@ -70,15 +70,15 @@ const config = {
         use: [
           'style-loader',
           {
-            loader: "string-replace-loader",
+            loader: 'string-replace-loader',
             options: {
-              search: "@img",
-              replace: "../img",
-              flags: "g",
+              search: '@img',
+              replace: '../img',
+              flags: 'g',
             },
           },
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               sourceMap: true,
               importLoaders: 1,
@@ -86,9 +86,9 @@ const config = {
               url: {
                 filter: (url, resourcePath) => {
                   if (url.includes(`img/`) || url.includes(`fonts/`)) {
-                    return false;
+                    return false
                   }
-                  return true;
+                  return true
                 },
               },
             },
@@ -97,22 +97,21 @@ const config = {
             loader: 'sass-loader',
             options: {
               sourceMap: true,
-            }
-          }
+            },
+          },
         ],
       },
       {
         test: /\.pug$/,
         use: [
           {
-            loader: "pug-loader",
+            loader: 'pug-loader',
           },
           {
-            loader: "string-replace-loader",
+            loader: 'string-replace-loader',
             options: {
               multiple: [
-                { search: "link(rel='stylesheet' href='css/style.min.css')", replace: " " },
-                { search: "PROJECT_NAME", replace: rootFolder, flags: "g" },
+                { search: 'PROJECT_NAME', replace: rootFolder, flags: 'g' },
               ],
             },
           },
@@ -122,15 +121,15 @@ const config = {
   },
   plugins: [
     ...pugPages.map(
-      (pugPage) =>
+      pugPage =>
         new HtmlWebpackPlugin({
           minify: false,
           template: `${srcFolder}/${pugPage}`,
-          filename: `${pugPage.replace(/\.pug/, ".html")}`,
+          filename: `${pugPage.replace(/\.pug/, '.html')}`,
           inject: false,
           templateParameters: {
-            isDev
-          }
+            isDev,
+          },
         })
     ),
     new CopyPlugin({
@@ -148,7 +147,7 @@ const config = {
           force: true,
         },
         {
-          from: `${paths.src}/favicon.ico`,
+          from: `${assetsFolder}/favicon.ico`,
           to: `./`,
           noErrorOnMissing: true,
         },
@@ -157,12 +156,12 @@ const config = {
   ],
   resolve: {
     alias: {
-      "@scss": `${paths.assets}/scss`,
-      "@js": `${paths.src}/js`,
-      "img": `${paths.assets}/img`,
-      "@pug": `${paths.assets}/pug`,
+      '@scss': `${paths.assets}/scss`,
+      '@js': `${paths.src}/js`,
+      img: `${paths.assets}/img`,
+      '@pug': `${paths.assets}/pug`,
     },
-    extensions: [".pug", ".jade", ".html", ".js", ".scss", ".json"],
+    extensions: ['.pug', '.jade', '.html', '.js', '.scss', '.json'],
   },
-};
-export default config;
+}
+export default config

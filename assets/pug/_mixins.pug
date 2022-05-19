@@ -2,13 +2,24 @@ mixin image(file, alt="")
   - const [fileName, ext] = file.split(".")
 
   if isDev
-    img(src=`${file}` alt=`${alt}` loading='lazy')&attributes(attributes)
-  
+    img(data-src=`${file}` alt=`${alt}` loading='lazy')&attributes(attributes)
+
   else if ext === "svg"
-    img(src=`${file}` alt=`${alt}` loading='lazy')&attributes(attributes)
+    img(data-src=`${file}` alt=`${alt}` loading='lazy')&attributes(attributes)
 
   else
     picture
       source(srcset=`${fileName}.avif` type="image/avif")
       source(srcset=`${fileName}.webp` type="image/webp")
-      img(src=`${file}` alt=`${alt}` loading='lazy')&attributes(attributes)
+      img(data-src=`${file}` alt=`${alt}` loading='lazy')&attributes(attributes)
+
+mixin linkCSS(file)
+
+  if isDev
+
+  else
+    link(rel='stylesheet' href=`${file}`)
+
+mixin icon(id)
+  svg&attributes(attributes)
+    use(xlink:href=`img/icons/icons.svg#svg-${id}`)
