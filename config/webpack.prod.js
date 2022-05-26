@@ -1,34 +1,34 @@
-import fs from "fs";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import CopyPlugin from "copy-webpack-plugin";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import TerserPlugin from "terser-webpack-plugin";
+import fs from 'fs'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import CopyPlugin from 'copy-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
 
-import * as path from "path";
+import * as path from 'path'
 
-const srcFolder = "src";
-const assetsFolder = "assets";
-const builFolder = "dist";
-const rootFolder = path.basename(path.resolve());
+const srcFolder = 'src'
+const assetsFolder = 'assets'
+const builFolder = 'dist'
+const rootFolder = path.basename(path.resolve())
 
 let pugPages = fs
   .readdirSync(srcFolder)
-  .filter((fileName) => fileName.endsWith(".pug"));
+  .filter(fileName => fileName.endsWith('.pug'))
 
 const paths = {
   src: path.resolve(srcFolder),
   assets: path.resolve(assetsFolder),
   build: path.resolve(builFolder),
-};
+}
 const config = {
-  mode: "production",
+  mode: 'production',
   cache: {
-    type: "filesystem",
+    type: 'filesystem',
   },
   output: {
     path: `${paths.build}`,
-    filename: "[name].min.js",
-    publicPath: "",
+    filename: '[name].min.js',
+    publicPath: '',
   },
   optimization: {
     minimizer: [
@@ -39,9 +39,9 @@ const config = {
     splitChunks: {
       cacheGroups: {
         vendor: {
-          name: "vendors",
+          name: 'vendors',
           test: /node_modules/,
-          chunks: "all",
+          chunks: 'all',
           enforce: true,
         },
       },
@@ -57,20 +57,20 @@ const config = {
       },
       {
         test: /\.js$/,
-        loader: "babel-loader",
-        exclude: "/node_modules/",
+        loader: 'babel-loader',
+        exclude: '/node_modules/',
       },
       {
         test: /\.pug$/,
         use: [
           {
-            loader: "pug-loader",
+            loader: 'pug-loader',
           },
           {
-            loader: "string-replace-loader",
+            loader: 'string-replace-loader',
             options: {
               multiple: [
-                { search: "PROJECT_NAME", replace: rootFolder, flags: "g" },
+                { search: 'PROJECT_NAME', replace: rootFolder, flags: 'g' },
               ],
             },
           },
@@ -87,15 +87,15 @@ const config = {
             },
           },
           {
-            loader: "string-replace-loader",
+            loader: 'string-replace-loader',
             options: {
-              search: "@img",
-              replace: "../img",
-              flags: "g",
+              search: '@img',
+              replace: '../img',
+              flags: 'g',
             },
           },
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               importLoaders: 0,
               sourceMap: false,
@@ -103,19 +103,19 @@ const config = {
               url: {
                 filter: (url, resourcePath) => {
                   if (url.includes(`img/`) || url.includes(`fonts/`)) {
-                    return false;
+                    return false
                   }
-                  return true;
+                  return true
                 },
               },
             },
           },
           {
-            loader: "sass-loader",
+            loader: 'sass-loader',
             options: {
               sassOptions: {
-                outputStyle: "expanded",
-              }
+                outputStyle: 'expanded',
+              },
             },
           },
         ],
@@ -124,16 +124,16 @@ const config = {
   },
   plugins: [
     ...pugPages.map(
-      (pugPage) =>
+      pugPage =>
         new HtmlWebpackPlugin({
           minify: false,
           template: `${srcFolder}/${pugPage}`,
-          filename: `../${pugPage.replace(/\.pug/, ".html")}`,
+          filename: `../${pugPage.replace(/\.pug/, '.html')}`,
           inject: false,
         })
     ),
     new MiniCssExtractPlugin({
-      filename: "../css/style.css",
+      filename: '../css/style.css',
     }),
     new CopyPlugin({
       patterns: [
@@ -143,8 +143,13 @@ const config = {
           noErrorOnMissing: true,
         },
         {
-          from: `${paths.src}/favicon.ico`,
-          to: `../`,
+          from: `${paths.assets}/img/favicons/favicon.ico`,
+          to: `../img/favicons`,
+          noErrorOnMissing: true,
+        },
+        {
+          from: `${paths.assets}/img/favicons/site.webmanifest`,
+          to: `../img/favicons`,
           noErrorOnMissing: true,
         },
       ],
@@ -152,12 +157,12 @@ const config = {
   ],
   resolve: {
     alias: {
-      "@scss": `${paths.assets}/scss`,
-      "@js": `${paths.src}/js`,
-      "@img": `${paths.assets}/img`,
-      "@pug": `${paths.assets}/pug`,
+      '@scss': `${paths.assets}/scss`,
+      '@js': `${paths.src}/js`,
+      '@img': `${paths.assets}/img`,
+      '@pug': `${paths.assets}/pug`,
     },
-    extensions: [".pug", ".js", ".scss", ".json"],
+    extensions: ['.pug', '.js', '.scss', '.json'],
   },
-};
-export default config;
+}
+export default config

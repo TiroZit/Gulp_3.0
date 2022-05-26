@@ -140,17 +140,6 @@ const config = {
           noErrorOnMissing: true,
           force: true,
         },
-        {
-          from: `${assetsFolder}/files`,
-          to: `files`,
-          noErrorOnMissing: true,
-          force: true,
-        },
-        {
-          from: `${assetsFolder}/favicon.ico`,
-          to: `./`,
-          noErrorOnMissing: true,
-        },
       ],
     }),
   ],
