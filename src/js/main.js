@@ -15,7 +15,7 @@
 window['FLS'] = false;
 
 // Подключение стилей
-import '../scss/style.scss';
+import '../sass/style.sass';
 
 // ФУНКЦИОНАЛ
 

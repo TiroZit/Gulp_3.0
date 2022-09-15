@@ -1,0 +1,17 @@
+extends ../../../assets/pug/_base
+block vars
+  - var lang = 'ru'
+  - var title = ''
+  - var description = ''
+  - var keywords = ''
+  //- Open Graph:
+  - var type = 'website'
+  - var imageOG = ''
+  //- Preload fonts
+  - var fonts = []
+
+block content
+  .wrapper
+    include ../sections/_header
+    main.page.page_home
+    include ../sections/_footer
