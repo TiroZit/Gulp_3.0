@@ -21,7 +21,7 @@ export const path = {
 		html: `${srcFolder}/*.html`,
 		pug: `${srcFolder}/pug/*.pug`,
 		js: `${srcFolder}/js/main.js`,
-		scss: `${srcFolder}/scss/style.scss`,
+		scss: `${srcFolder}/sass/style.scss`,
 		images: `${assetsFolder}/img/**/*.{jpg,jpeg,png,gif,webp,avif}`,
 		svg: `${assetsFolder}/img/**/*.svg`,
 		fonts: `${assetsFolder}/fonts/*.*`,

@@ -11,7 +11,7 @@ const rootFolder = path.basename(path.resolve())
 const isDev = !process.argv.includes('--build')
 
 let pugPages = fs
-  .readdirSync(srcFolder)
+  .readdirSync(`${srcFolder}/pug/pages`)
   .filter(fileName => fileName.endsWith('.pug'))
 
 const paths = {
@@ -65,7 +65,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(scss|css)$/,
+        test: /\.(sass|scss|css)$/,
         exclude: `${paths.assets}/fonts`,
         use: [
           'style-loader',
@@ -124,7 +124,7 @@ const config = {
       pugPage =>
         new HtmlWebpackPlugin({
           minify: false,
-          template: `${srcFolder}/${pugPage}`,
+          template: `${srcFolder}/pug/pages/${pugPage}`,
           filename: `${pugPage.replace(/\.pug/, '.html')}`,
           inject: false,
           templateParameters: {
