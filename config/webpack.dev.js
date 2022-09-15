@@ -97,6 +97,7 @@ const config = {
             loader: 'sass-loader',
             options: {
               sourceMap: true,
+              warnRuleAsWarning: false,
             },
           },
         ],
